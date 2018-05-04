@@ -1,0 +1,97 @@
+<style lang="scss">
+.page-pays {
+    --from: #24C6DC;
+    --stop: #42b9e0;
+    --to: #514A9D;
+
+    width: 100%;
+    height: 100%;
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(var(--from)),
+        color-stop(0.1, var(--stop)),
+        to(var(--to))
+    );
+    // background: #56ccf2;
+    // background: -webkit-linear-gradient(to bottom, var(--from), var(--to));
+    // background: linear-gradient(to bottom, var(--from), var(--to));
+}
+</style>
+
+<template>
+    <view class="page-pays">
+        <view wx:if="{{title}}">支付信息：{{title}}</view>
+        <view wx:if="{{amount}}">支付金额：{{amount}}</view>
+        <view wx:if="{{jumpUrl}}">支付成功跳转页面：{{jumpUrl}}</view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import api from './../api/index.js';
+import Tips from './../utils/Tips.js';
+
+export default class pays extends wepy.page {
+    config = {
+        navigationBarTitleText: '支付测试页面',
+        navigationBarTextStyle: 'black',
+        navigationBarBackgroundColor: '#24C6DC'
+    };
+    computed = {};
+
+    data = {
+        jumpUrl: '',
+        amount: '',
+        title: ''
+    };
+
+    methods = {};
+
+    async onLoad(data) {
+        let self = this;
+        // 获取网页传过来的值
+        if (data.amount) {
+            self.pay(data);
+        }
+        this.$apply();
+    }
+
+    async onShow() {}
+
+    async pay(data) {
+        this.jumpUrl = data.jumpUrl;
+        this.amount = data.amount;
+        this.title = data.title;
+        Tips.loading('支付中');
+        let res = await api.payMoney();
+        Tips.loaded();
+        console.log(res);
+        let response = res.data.data;
+        if (!response || !response.timeStamp) {
+            Tips.alert('支付失败');
+            return false;
+        }
+        wepy
+            .requestPayment({
+                timeStamp: response.timeStamp.toString(),
+                nonceStr: response.nonceStr,
+                package: response.prepayId,
+                signType: 'MD5',
+                paySign: response.sign
+            })
+            .then(res => {
+                console.log(res);
+                // Tips.confirm(`支付 ${this.amount} 元成功！`).then(res => {
+                //     this.$root.$navigate('web', { url: this.jumpUrl });
+                // });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+
+        this.$apply();
+    }
+}
+</script>

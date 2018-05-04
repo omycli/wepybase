@@ -1,0 +1,90 @@
+<style lang="scss">
+.slide-image {
+    width: 100%;
+}
+swiper-item{
+    padding: 0 10rpx;
+}
+</style>
+
+
+<template>
+    <view>
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" vertical="{{vertical}}" previous-margin="{{previous}}" next-margin="{{next}}">
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" />
+                </swiper-item>
+            </block>
+        </swiper>
+        <button bindtap="changeIndicatorDots"> 显示指示点</button>
+        <button bindtap="changeAutoplay"> 自动轮播 </button>
+        <button bindtap="changeCircular"> 衔接播放 </button>
+        <button bindtap="changeVertical"> 纵向滑动 </button>
+        <slider bindchange="intervalChange" show-value min="500" max="2000" /> interval
+        <slider bindchange="durationChange" show-value min="1000" max="10000" /> duration
+        <slider bindchange="previousChange" show-value min="0" max="200" /> previous
+        <slider bindchange="nextChange" show-value min="0" max="200" /> next
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class swiper extends wepy.page {
+    config = {
+        navigationBarTitleText: 'swiper',
+        navigationBarTextStyle: 'white',
+        enablePullDownRefresh: false,
+        navigationBarBackgroundColor: '#69aaaa'
+    };
+    computed = {};
+
+    data = {
+        imgUrls: [
+            'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+            'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+            'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+        ],
+        indicatorDots: false,
+        autoplay: false,
+        interval: 5000,
+        duration: 1000,
+        circular: true,
+        vertical: false,
+        previous: 30,
+        next: 30
+    };
+
+    methods = {
+        changeIndicatorDots: function(e) {
+            this.indicatorDots = !this.data.indicatorDots;
+        },
+        changeAutoplay: function(e) {
+            this.autoplay = !this.data.autoplay;
+        },
+        intervalChange: function(e) {
+            this.interval = e.detail.value;
+        },
+        durationChange: function(e) {
+            this.duration = e.detail.value;
+        },
+        changeCircular: function(e) {
+            this.circular = !this.circular;
+        },
+        changeVertical: function(e) {
+            this.vertical = !this.vertical;
+        },
+        previousChange: function(e) {
+            this.previous = e.detail.value;
+        },
+        nextChange: function(e) {
+            this.next = e.detail.value;
+        }
+    };
+
+    async onLoad() {}
+
+    async onShow() {}
+}
+</script>

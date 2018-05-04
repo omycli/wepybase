@@ -1,0 +1,186 @@
+<style lang="scss">
+.content {
+    flex: 1;
+    display: flex;
+    position: relative;
+    z-index: 10;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 500rpx;
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(244, 244, 244, 0)),
+        color-stop(0.1, #f4f4f4),
+        to(#f4f4f4)
+    );
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+    animation: rise 3s cubic-bezier(0.19, 1, 0.22, 1) 0.25s forwards;
+}
+.hd {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1000rpx;
+    margin-left: -500rpx;
+    height: 200rpx;
+    transition: all 0.35s ease;
+}
+.wave {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 0;
+    opacity: 0.725;
+    height: 260rpx;
+    width: 2250rpx;
+    animation: wave 10s linear infinite;
+}
+.wave-bg {
+    z-index: 1;
+    animation: wave-bg 10.25s linear infinite;
+}
+.bd {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    animation: bd-rise 2s cubic-bezier(0.23, 1, 0.32, 1) 0.75s forwards;
+    opacity: 0;
+}
+.btn {
+    font-size: 28rpx;
+    line-height: 48rpx;
+    height: 48rpx;
+    background: #69c3aa;
+    color: #f4f4f4;
+    text-align: center;
+    border-radius: 100rpx;
+    margin: 20rpx;
+}
+.card {
+    --from: rgb(255, 210, 0);
+    --to: rgb(247, 151, 30);
+    --shadow: rgba(251, 180, 15, 0.589);
+
+    position: absolute;
+    top: 200rpx;
+    width: 80%;
+    height: 260rpx;
+    color: #fff;
+    background: linear-gradient(130deg, var(--from), var(--to));
+    overflow: hidden;
+    border-radius: 4%/11.5%;
+    box-shadow: 0 106rpx 134rpx -52rpx var(--shadow);
+}
+.logo {
+    position: absolute;
+    top: 34%;
+    width: 160rpx;
+    height: 160rpx;
+    margin: 0 auto;
+    border-radius: 160rpx;
+    opacity: 0.95;
+}
+</style>
+
+
+
+<template>
+    <view class="container column-center">
+        <view class="icon-cherry1"></view>
+        <view class="icon-cherry2 animated {{moveR ? 'bounceOutRight' : ''}}" @tap="move"></view>
+        <open-data class="logo" type="userAvatarUrl" lang="zh_CN"></open-data>
+        <view class="column-center">
+            <view class="card column-center" @tap="pay">
+                支付
+            </view>
+        </view>
+        <view class="content ">
+            <view class="hd" style="transform:rotateZ({{angle}}deg);">
+                <image class="wave" src="/images/wave.png" mode="aspectFill" />
+                <image class="wave wave-bg" src="/images/wave.png" mode="aspectFill" />
+            </view>
+            <view class="bd">
+                <view @tap="swiper" class="btn" hover-class="btn-hover">swiper</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+// import NAV from './../utils/nav.js';
+// import api from './../api/api.js';
+
+export default class testIndex extends wepy.page {
+    config = {
+        navigationStyle: 'custom',
+        navigationBarTitleText: 'demo首页',
+        disableScroll: true,
+        navigationBarTextStyle: 'white',
+        navigationBarBackgroundColor: '#69c3aa'
+    };
+    computed = {};
+
+    data = {
+        angle: 0,
+        moveR: false
+    };
+
+    methods = {
+        pay() {
+            let url = {
+                jumpUrl: '111',
+                amount: '1',
+                title: 'q'
+            };
+            this.$root.$navigate('pays', url);
+        },
+        swiper() {
+            this.$root.$navigate('swiper');
+        },
+        move() {
+            this.moveR = true;
+        }
+    };
+
+    async onShow() {}
+    async onReady() {
+        wepy.onAccelerometerChange(res => {
+            var angle = -(res.x * 30).toFixed(1);
+            if (angle > 14) {
+                angle = 14;
+            } else if (angle < -14) {
+                angle = -14;
+            }
+            if (this.angle !== angle) {
+                this.angle = angle;
+            }
+        });
+    }
+
+    async onLoad(data) {
+        let self = this;
+    }
+
+    onShareAppMessage(res) {
+        return {
+            title: `demo首页`,
+            path: '/pages/testIndex',
+            imageUrl: './../images/tips.png',
+            fail: res => {
+                wepy.showToast({
+                    title: '装逼失败 请重试',
+                    icon: 'none'
+                });
+            }
+        };
+    }
+}
+</script>

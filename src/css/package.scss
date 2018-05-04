@@ -1,0 +1,18 @@
+/**
+ * 样式主文件
+ */
+ @import "page";
+
+/**
+ * 常用的 mixins
+ */
+ @import "mixin";
+
+ /**
+  * 页面的基础样式，包括样式重置
+  */
+ @import "base";
+
+
+ @import "./sprite/sprite";
+ @import "./animate";

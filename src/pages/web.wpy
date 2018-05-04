@@ -1,0 +1,29 @@
+<template>
+    <web-view src="{{res}}"></web-view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class web extends wepy.page {
+    config = {
+        navigationBarTitleText: '内置H5页面',
+        navigationBarTextStyle: 'white',
+        navigationBarBackgroundColor: '#69aaaa'
+    };
+    computed = {};
+
+    data = {
+        res: ''
+    };
+
+    methods = {};
+
+    async onLoad(data) {
+        this.res = data.url;
+        this.$apply();
+    }
+
+    async onShow() {}
+}
+</script>

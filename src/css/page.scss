@@ -1,0 +1,60 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    background: #69c3aa;
+    align-items: stretch;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+@keyframes rise {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 450rpx, 0);
+    }
+}
+
+@keyframes wave {
+    from {
+        transform: translate3d(125rpx, 0, 0);
+    }
+    to {
+        transform: translate3d(1125rpx, 0, 0);
+    }
+}
+@keyframes wave-bg {
+    from {
+        transform: translate3d(375rpx, 0, 0);
+    }
+    to {
+        transform: translate3d(1375rpx, 0, 0);
+    }
+}
+
+@keyframes bd-rise {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 60rpx, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+
+.btn-hover {
+    opacity: 0.8;
+}
