@@ -1,7 +1,7 @@
 {
 	"client": "./dist",
 	"svr": "",
-	"appid": "",
+	"appid": "touristappid",
 	"projectname": "wepybase",
 	"setting": {
 		"urlCheck": false,

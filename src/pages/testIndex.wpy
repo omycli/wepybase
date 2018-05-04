@@ -165,9 +165,7 @@ export default class testIndex extends wepy.page {
         });
     }
 
-    async onLoad(data) {
-        let self = this;
-    }
+    async onLoad(data) {}
 
     onShareAppMessage(res) {
         return {

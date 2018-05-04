@@ -5,5 +5,5 @@ const IS_DEV_URL = false
 
 export const BaseUrl =
     IS_DEV_URL === true
-        ? 'https://tshttps.qqdayu.com'
-        : 'https://parkinglot.qqdayu.com';
+        ? 'https://tshttps.com'
+        : 'https://https.com';
