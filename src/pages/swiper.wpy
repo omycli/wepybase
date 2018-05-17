@@ -1,30 +1,35 @@
 <style lang="scss">
-.slide-image {
-    width: 100%;
+swiper {
+  height: 380rpx;
+  margin-bottom: 20rpx;
 }
-swiper-item{
-    padding: 0 10rpx;
+
+swiper-item, swiper-item image {
+  width: 100%;
+  height: 300rpx;
+  border-radius: 15rpx;
+  overflow: hidden;
+}
+.slide-image {
+    position: relative;
+    width: 100%;
+    height: 300rpx;
+    background: #fff;
+    box-shadow: 0 10rpx 15rpx rgba(0, 0, 0, 0.1);
+    -webkit-transition: .3s;
 }
 </style>
 
 
 <template>
     <view>
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" vertical="{{vertical}}" previous-margin="{{previous}}" next-margin="{{next}}">
-            <block wx:for="{{imgUrls}}" wx:key="index">
-                <swiper-item>
-                    <image src="{{item}}" class="slide-image" />
+        <swiper current="{{ curIndex }}" bindchange="onSwiperChange"  style="overflow: visible;" circular="true" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" duration="300" interval="5000">
+            <repeat for="{{ imgUrls }}" key="actpic" item="item">
+                <swiper-item style="overflow: visible;">
+                    <image src="{{ item }}" style="-webkit-transform: scale({{ curIndex == index ? 0.9 : 0.65 }}) translate({{ (curIndex == index - 1 || curIndex == index + 1) ? (curIndex - index) * 30 : 0 }}%, 0);" mode="aspectFill" />
                 </swiper-item>
-            </block>
+            </repeat>
         </swiper>
-        <button bindtap="changeIndicatorDots"> 显示指示点</button>
-        <button bindtap="changeAutoplay"> 自动轮播 </button>
-        <button bindtap="changeCircular"> 衔接播放 </button>
-        <button bindtap="changeVertical"> 纵向滑动 </button>
-        <slider bindchange="intervalChange" show-value min="500" max="2000" /> interval
-        <slider bindchange="durationChange" show-value min="1000" max="10000" /> duration
-        <slider bindchange="previousChange" show-value min="0" max="200" /> previous
-        <slider bindchange="nextChange" show-value min="0" max="200" /> next
     </view>
 </template>
 
@@ -42,49 +47,28 @@ export default class swiper extends wepy.page {
 
     data = {
         imgUrls: [
-            'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-            'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+            'http://bmob-cdn-14867.b0.upaiyun.com/2017/12/01/89a6eba340008dce801381c4550787e4.png',
+            'http://bmob-cdn-14867.b0.upaiyun.com/2017/12/01/89a6eba340008dce801381c4550787e4.png',
+            'http://bmob-cdn-14867.b0.upaiyun.com/2017/12/01/89a6eba340008dce801381c4550787e4.png',
+            'http://bmob-cdn-14867.b0.upaiyun.com/2017/12/01/89a6eba340008dce801381c4550787e4.png',
+            'http://bmob-cdn-14867.b0.upaiyun.com/2018/03/14/95904de0409bda1d80c782d50f6e89b0.jpg',
             'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
         ],
-        indicatorDots: false,
+        indicatorDots: true,
         autoplay: false,
-        interval: 5000,
-        duration: 1000,
-        circular: true,
-        vertical: false,
-        previous: 30,
-        next: 30
+        curIndex: 0
     };
 
     methods = {
-        changeIndicatorDots: function(e) {
-            this.indicatorDots = !this.data.indicatorDots;
-        },
-        changeAutoplay: function(e) {
-            this.autoplay = !this.data.autoplay;
-        },
-        intervalChange: function(e) {
-            this.interval = e.detail.value;
-        },
-        durationChange: function(e) {
-            this.duration = e.detail.value;
-        },
-        changeCircular: function(e) {
-            this.circular = !this.circular;
-        },
-        changeVertical: function(e) {
-            this.vertical = !this.vertical;
-        },
-        previousChange: function(e) {
-            this.previous = e.detail.value;
-        },
-        nextChange: function(e) {
-            this.next = e.detail.value;
+        onSwiperChange: function(e) {
+            this.curIndex = e.detail.current;
         }
     };
 
     async onLoad() {}
 
     async onShow() {}
+
+    onHide() {}
 }
 </script>
