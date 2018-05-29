@@ -1,0 +1,48 @@
+<style lang="less" src="index.less"></style>
+<template>
+    <view>
+        <rich-text nodes="{{wxParserData}}" bindtap="tap"></rich-text>
+    </view>
+</template>
+<script>
+import wepy from 'wepy';
+import html2Json from './html2json';
+
+export default class wxparse extends wepy.component {
+    props = {
+        html: {
+            type: String,
+            default: 'null'
+        }
+    };
+
+    data = {
+        wxParserData: ''
+    };
+
+    computed = {};
+
+    watcher = {};
+
+    methods = {
+        tap(e) {
+            console.log(e);
+        }
+    };
+
+    onLoad() {
+        this.parse();
+    }
+
+    parse() {
+        if (Object.prototype.toString.call(this.html) !== '[object String]') {
+            throw new Error('HTML 内容必须是字符串');
+        }
+        let transData = {}; // 存放转化后的数据
+        transData = html2Json.html2json(this.html, this.bind);
+
+        this.wxParserData = transData.nodes;
+        this.$apply();
+    }
+}
+</script>

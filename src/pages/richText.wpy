@@ -1,0 +1,76 @@
+<template>
+    <view>
+        <wxparse :html="tpl"></wxparse>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import wxparse from './../components/wxparser/wxparse';
+
+export default class richText extends wepy.page {
+    config = {
+        navigationBarTitleText: '富文本编辑器',
+        navigationBarTextStyle: 'white',
+        navigationBarBackgroundColor: '#69aaaa'
+    };
+
+    components = {
+        wxparse: wxparse
+    };
+    computed = {};
+
+    data = {
+        tpl: `<p style="text-align: center;">
+    <img src="data:image/png;base64,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" alt="image"/>
+</p>
+<p style="text-align: center;">
+    <img src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/3.png?t=2017213" alt="image"/>
+</p>
+<p style="text-align: center; ">
+    <strong style="background-color: rgb(146, 208, 80);">&nbsp; &nbsp; 标题 &nbsp; &nbsp;&nbsp;</strong>
+</p>
+<p style="text-align: center;">
+    <span style="background-color: rgb(255, 255, 255);">&nbsp;</span>
+</p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89); line-height: 1.5em; text-indent: 0em;">人和人之间最难改变的就是“第一印象”，</span><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(79, 79, 79);"></span></span>
+</p>
+<p style="margin: 0em 1em; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; text-indent: 0em; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89);">每一个重要的场合都不好拿捏。</span>
+</p>
+<p style="margin: 0em 1em; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; text-indent: 0em; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89);"><br/></span>
+</p>
+<p style="margin: 0em 1em; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; text-indent: 0em; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89);">穿得时尚容易变得花哨，</span>
+</p>
+<p style="margin: 0em 1em; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; text-indent: 0em; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89);">稍微休闲一点又被认为不修边幅，或者呆板。</span>
+</p>
+<p style="margin: 0em 1em; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; text-indent: 0em; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89);"><br/></span>
+</p>
+<p style="margin: 0em 1em; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; text-indent: 0em; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89);">穿得好是能力，一直穿得好是绝对竞争力</span>
+</p>
+<p style="margin: 0em 1em; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; font-variant-numeric: normal; font-variant-east-asian: normal; letter-spacing: 0.544px; line-height: 27.2px; text-indent: 0em; white-space: normal; widows: 1; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;">
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(89, 89, 89);">它映射你的</span><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(136, 136, 136);"><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">品味、人格魅力和生活层次</strong></span><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">。</span></span></span>
+</p>
+<p>
+    <span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: rgb(136, 136, 136);"><span style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><br/></span></span></span>
+</p>
+<p style="text-align: center;">
+    <span style="background-color: rgb(255, 255, 255);"></span><br/>
+</p>`,
+        bind: 'richText',
+        enablePreviewImage: false
+    };
+
+    methods = {};
+
+    async onLoad(data) {}
+
+    async onShow() {}
+}
+</script>
