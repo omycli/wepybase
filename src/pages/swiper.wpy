@@ -1,14 +1,15 @@
 <style lang="scss">
 swiper {
-  height: 380rpx;
-  margin-bottom: 20rpx;
+    height: 380rpx;
+    margin-bottom: 20rpx;
 }
 
-swiper-item, swiper-item image {
-  width: 100%;
-  height: 300rpx;
-  border-radius: 15rpx;
-  overflow: hidden;
+swiper-item,
+swiper-item image {
+    width: 100%;
+    height: 300rpx;
+    border-radius: 15rpx;
+    overflow: hidden;
 }
 .slide-image {
     position: relative;
@@ -16,14 +17,29 @@ swiper-item, swiper-item image {
     height: 300rpx;
     background: #fff;
     box-shadow: 0 10rpx 15rpx rgba(0, 0, 0, 0.1);
-    -webkit-transition: .3s;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+}
+
+.swiper-demo {
+    .wx-swiper-dot {
+        position: relative;
+        bottom: -16rpx;
+    }
+
+    .wx-swiper-dot-active {
+        background: #69c3aa !important;
+        width: 26px !important;
+        height: 8px !important;
+        border-radius: 10px !important;
+    }
 }
 </style>
 
 
 <template>
-    <view>
-        <swiper current="{{ curIndex }}" bindchange="onSwiperChange"  style="overflow: visible;" circular="true" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" duration="300" interval="5000">
+    <view class="swiper-demo">
+        <swiper current="{{ curIndex }}" bindchange="onSwiperChange" style="overflow: visible;" circular="true" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" duration="300" interval="5000">
             <repeat for="{{ imgUrls }}" key="actpic" item="item">
                 <swiper-item style="overflow: visible;">
                     <image src="{{ item }}" style="-webkit-transform: scale({{ curIndex == index ? 0.9 : 0.65 }}) translate({{ (curIndex == index - 1 || curIndex == index + 1) ? (curIndex - index) * 30 : 0 }}%, 0);" mode="aspectFill" />
