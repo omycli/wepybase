@@ -5,8 +5,8 @@
   "main": "dist/app.js",
   "scripts": {
     "sprite": "cross-env NODE_ENV=development gulp default --gulpfile ./gulpfile.js",
-    "dev": "npm run sprite && wepy build --watch",
-    "build": "npm run sprite && cross-env NODE_ENV=production wepy build --no-cache",
+    "dev": "wepy build --watch",
+    "build": "cross-env NODE_ENV=production wepy build --no-cache",
     "test": "echo lol"
   },
   "author": "",
