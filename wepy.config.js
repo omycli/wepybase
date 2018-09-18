@@ -1,30 +1,31 @@
+const path = require('path');
 let prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
     eslint: true,
     wpyExt: '.wpy',
+    build: {
+        web: {
+            htmlTemplate: path.join('src', 'index.template.html'),
+            htmlOutput: path.join('web', 'index.html'),
+            jsOutput: path.join('web', 'index.js')
+        }
+    },
     compilers: {
         sass: {
             outputStyle: 'expanded'
         },
         babel: {
             sourceMap: true,
-            presets: [
-                'es2015',
-                'stage-1'
-            ],
-            plugins: [
-                'transform-export-extensions',
-                'syntax-export-extensions'
-            ]
+            presets: ['es2015', 'stage-1'],
+            plugins: ['transform-export-extensions', 'syntax-export-extensions']
         }
     }
 };
 if (prod) {
-
     delete module.exports.compilers.babel.sourcesMap;
     // 压缩sass
-    module.exports.compilers['sass'] = {outputStyle: 'expanded'}
+    module.exports.compilers['sass'] = { outputStyle: 'expanded' };
 
     // 压缩less
     module.exports.compilers['less'] = {
@@ -47,6 +48,9 @@ if (prod) {
                     quality: 80
                 }
             }
+        },
+        filemin: {
+            filter: /\.(json|wxml|xml)$/
         }
-    }
+    };
 }
