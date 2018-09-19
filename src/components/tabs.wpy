@@ -1,0 +1,140 @@
+<style lang="scss">
+.tabs-a {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    .scroll {
+        position: relative;
+        width: 100%;
+        height: 42px;
+        white-space: nowrap;
+        overflow: hidden;
+        $sfrom: #4415af;
+        $send: #3e5ed0;
+        background: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from($sfrom),
+            to($send)
+        );
+    }
+    .item {
+        display: inline-block;
+        text-align: center;
+        height: 42px;
+        line-height: 42px;
+    }
+}
+</style>
+<template>
+    <view class="tabs-a">
+        <scroll-view class="scroll" scroll-into-view="tab{{currentTab}}" scroll-x="true">
+            <repeat for="{{ navList }}" key="index" index="index" item="item">
+                <div class="item" style="{{menuStyle}}" id="tab{{index+1}}" @tap="swichNav({{index}})">
+                    <span style="{{currentTab === index ? big : normal}}">{{item}}</span>
+                </div>
+            </repeat>
+        </scroll-view>
+    </view>
+</template>
+<script>
+import wepy from 'wepy';
+export function obj2style(style) {
+    let str = [];
+    Object.keys(style).forEach(key => {
+        str.push(`${key}:${style[key]};`);
+    });
+    return str.join(';');
+}
+
+export default class tabs extends wepy.component {
+    props = {
+        navList: {
+            type: Array,
+            default: []
+        },
+        menuWidth: {
+            type: Number,
+            default: 90
+        },
+        currentTab: {
+            type: Number,
+            default: 0,
+            twoWay: true
+        },
+        color: {
+            type: String,
+            default: '#ffffff'
+        },
+        normalSize: {
+            type: String,
+            default: '32rpx'
+        },
+        tapSize: {
+            type: String,
+            default: '36rpx'
+        },
+        tapLine: {
+            type: String,
+            default: '#0deafe'
+        }
+    };
+
+    data = {
+        winWidth: null,
+        winHeight: null
+    };
+
+    computed = {
+        normal() {
+            let style = {};
+            style['font-size'] = this.normalSize;
+            return obj2style(style);
+        },
+        big() {
+            let style = {};
+            style['font-size'] = this.tapSize;
+            style['padding-bottom'] = '18rpx';
+            style['border-bottom'] = '4rpx solid' + this.tapLine;
+            return obj2style(style);
+        },
+        menuStyle() {
+            let style = {};
+            if (this.navWidth) {
+                style['color'] = this.color;
+                style['min-width'] = this.navWidth + 'px';
+                if (this.navList.length >= 5) {
+                    style['padding-right'] = '10px';
+                }
+                return obj2style(style);
+            }
+        }
+    };
+
+    watcher = {};
+
+    methods = {
+        swichNav(index) {
+            if (this.currentTab === index) return false;
+            this.currentTab = index;
+            this.$emit('change', index);
+            this.$apply();
+        }
+    };
+
+    async onLoad() {
+        let info = await wepy.getSystemInfo();
+        this.winWidth = info.windowWidth;
+        this.winHeight = info.windowHeight;
+        if (!this.menuWidth || this.navList.length < 5) {
+            this.navWidth = this.winWidth / this.navList.length;
+        } else {
+            this.navWidth = this.menuWidth;
+        }
+        this.$apply();
+    }
+}
+</script>

@@ -9,7 +9,7 @@ import 'wepy-async-function';
 
 export default class extends wepy.app {
     config = {
-        pages: ['pages/testIndex', 'pages/pays', 'pages/web', 'pages/swiper'],
+        pages: ['pages/testIndex', 'pages/pays', 'pages/richText', 'pages/swiper', 'pages/tab'],
         window: {
             navigationBarBackgroundColor: '#69c3aa',
             navigationBarTextStyle: 'white',

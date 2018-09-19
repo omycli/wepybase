@@ -1,0 +1,45 @@
+<style lang="scss">
+</style>
+
+
+<template>
+    <view class="tab-demo">
+        <wxtabs :navList="nav"></wxtabs>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import wxtabs from '../components/tabs';
+
+export default class tab extends wepy.page {
+    config = {
+        navigationBarTitleText: 'swiper',
+        navigationBarTextStyle: 'white',
+        enablePullDownRefresh: false,
+        navigationBarBackgroundColor: '#69aaaa'
+    };
+    components = {
+        wxtabs: wxtabs
+    };
+    computed = {};
+
+    data = {
+        nav: ['hahah', 'heheh', 'jay']
+    };
+
+    events = {
+        change: (index, $event) => {
+            console.log(index);
+        }
+    };
+
+    methods = {};
+
+    async onLoad() {}
+
+    async onShow() {}
+
+    onHide() {}
+}
+</script>

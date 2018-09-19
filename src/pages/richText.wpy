@@ -6,7 +6,7 @@
 
 <script>
 import wepy from 'wepy';
-import wxparse from './../components/wxparser/wxparse';
+import wxparse from '../components/wxparser/wxparse';
 
 export default class richText extends wepy.page {
     config = {

@@ -109,6 +109,7 @@
             <view class="bd">
                 <view @tap="rich" class="btn" hover-class="btn-hover">跳转富文本</view>
                 <view @tap="swiper" class="btn" hover-class="btn-hover">swiper</view>
+                <view @tap="tab" class="btn" hover-class="btn-hover">tab</view>
             </view>
         </view>
     </view>
@@ -151,6 +152,9 @@ export default class testIndex extends wepy.page {
         },
         rich() {
             this.$root.$navigate('richText');
+        },
+        tab() {
+            this.$root.$navigate('tab');
         }
     };
 
